@@ -1,0 +1,42 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+ simple:
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+ console:
+  class: logging.StreamHandler
+  level: INFO
+  formatter: simple
+  stream: ext://sys.stdout
+
+ logfile:
+  # 파일 용량단위
+  #class: logging.handlers.RotatingFileHandler
+  #level: DEBUG
+  #formatter: simple
+  #filename: C:/log/seoul_capacity.log
+  #maxBytes: 10485760 # 10MB
+  #backupCount: 20
+
+  # 날짜별 로그파일 생성 : when 'D' : Days
+  class: logging.handlers.TimedRotatingFileHandler
+  level: DEBUG
+  formatter: simple
+  when: D
+  filename: C:/log/seoul_daily.log
+  backupCount: 1
+
+root:
+ level: DEBUG
+ handlers: [console]
+
+loggers:
+ con_file_logger:
+  level: INFO
+  #handlers: [console, logfile]
+  handlers: [logfile]
+  propogate: no
